@@ -1,0 +1,23 @@
+###  Authentication agent.
+#lxpolkit &
+
+###  Turn on the Power Manager.
+#xfce4-power-manager &
+
+###  Start the wallpaper.
+sleep 2 && nitrogen --restore
+
+### Play the Startup sound.
+sleep 1 && aplay /usr/share/sounds/linuxmint-login.wav &
+
+###  Turn on the panel.
+sleep 2 && tint2 &
+
+###  Turn on the volume icon.
+sleep 3 && volumeicon &
+
+###  Turn on the Conky
+sleep 3 && conkystart &
+
+### Show the Network Manager in the system tray.
+sleep 4 && nm-applet &
