@@ -1,0 +1,150 @@
+conky.config = {
+
+--  Window Settings
+    own_window = true,
+    own_window_type = 'desktop',
+    own_window_transparent = true,
+    own_window_hints = 'undecorated,below,skip_taskbar,skip_pager,sticky',
+    own_window_colour = '000000',
+    own_window_class = 'Conky',
+    own_window_title = 'Crypto Conky',
+
+-- ARGB can be used for real transparency
+--own_window_argb_visual = true, -- Options: true|false
+
+-- NOTE that a composite manager is required for real transparency and ARGB will not
+-- work as desired (in most cases) in conjunction with 'own_window_type override'.
+-- Use with: own_window_type = 'normal',
+-- Use with: own_window_transparent = false,
+
+-- When ARGB visuals are enabled, use the following to modify the alpha value. Valid
+-- range is 0-255, where 0 is 0% opacity, and 255 is 100% opacity.
+--own_window_argb_value = 150,
+
+    minimum_width = 290, minimum_height = 440,-- width | height
+    maximum_width = 540,
+
+    gap_x =  0,-- left | right
+    gap_y = 17,-- up | down
+
+    alignment = 'top_right',
+--  End Window Settings
+
+
+--  Font Settings
+-- Use Xft (anti-aliased font and stuff)
+    use_xft = true,
+
+--font = 'Liberation Mono:bold:size=10',
+--font = 'Liberation Sans:size=10',
+    font = 'Sans-serif:size=10',
+
+-- Alpha of Xft font. Must be a value at or between 1 and 0
+    xftalpha = 1,
+
+-- Force UTF8? requires XFT
+    override_utf8_locale = true,
+
+    uppercase = false,
+--  End Font Settings
+
+
+--  Color Settings
+    draw_shades = false,
+    default_shade_color = '000000',
+
+    draw_outline = false,-- amplifies text if true
+    default_outline_color = '000000',
+
+    default_color = '4b8bad', -- Lithium blue
+
+--  End Color Settings
+
+
+--  Borders Section
+    draw_borders = false,
+-- Stippled borders?
+    stippled_borders = 5,
+-- border margins
+    border_inner_margin = 5,
+    border_outer_margin = 0,
+-- border width
+    border_width = 2,
+-- graph borders
+    draw_graph_borders = false,
+--default_graph_height = 15,
+--default_graph_width = 40,
+--  End Borders Section
+
+
+--  Miscellaneous Section
+-- Boolean value, if true, Conky will be forked to background when started.
+    background = true,
+
+-- Adds spaces around certain objects to stop them from moving other things
+-- around, this only helps if you are using a mono font
+-- Options: right, left or none
+    use_spacer = 'none',
+
+-- Default and Minimum size is 256 - needs more for single commands that
+-- "call" a lot of text IE: bash scripts
+--text_buffer_size = 6144,
+
+-- Subtract (file system) buffers from used memory?
+    no_buffers = true,
+
+-- change GiB to G and MiB to M
+    short_units = true,
+
+-- Imlib2 image cache size, in bytes. Default 4MiB Increase this value if you use
+-- $image lots. Set to 0 to disable the image cache.
+    imlib_cache_size = 0,
+
+-- Use the Xdbe extension? (eliminates flicker)
+-- It is highly recommended to use own window with this one
+-- so double buffer won't be so big.
+    double_buffer = true,
+
+-- Maximum size of user text buffer, i.e. layout below TEXT line in config file
+-- (default is 16384 bytes)
+--max_user_text = 16384,
+
+-- Desired output unit of all objects displaying a temperature. Parameters are
+-- either "fahrenheit" or "celsius". The default unit is degree Celsius.
+--temperature_unit = 'Fahrenheit',
+
+-- Update interval in seconds
+    update_interval = 1,
+
+--  End Miscellaneous Section
+};
+
+conky.text = [[
+      
+           
+        ${color ffffff}${font Product Sans:size=27}Up. ${color ffffff}$uptime_short
+  ${color ffffff}${font Noto Sans:size=10}  CPU : ${offset 15}${cpu cpu0}%
+       RAM  : ${offset 15}$mem / ${memmax} 
+       Disk  : ${offset 15}${fs_used /} / ${fs_size /}
+      
+       Down  : ${offset 5}${downspeedf wlp3s0} KB/s   Up : ${upspeedf wlp3s0} KB/s
+     
+      ---------------------------------------------------
+      
+       ${color ffffff}${font Ubuntu:Bold:Italic:size=12}bitcoin ${color ffffff}${font Noto Sans:size=10}  (BTC)  is now  £${execi 60 curl -s https://api.coinbase.com/v2/prices/spot?currency=GBP | jq '.data.amount' | sed -E 's/(,"*)//' | xargs printf "%.2f"}
+  
+       ${font Noto Sans:size=10}${color ffffff}Cardano  (ADA)   £ ${execi 60 curl gbp.rate.sx/1ada?TFq -s | cut -c1-7}${texeci 1 curl -s https://api.hitbtc.com/api/2/public/ticker/ADAUSD | jq -r '.last' | awk {'printf "%7.2f",$1'}} USD 
+       ${color dark grey}
+       
+          Alt + F2           Run Dialog
+          [S] + Space    Main Menu
+          [S] + t              Terminal
+          [S] + f              File Manager
+          [S] + m            MOC
+          [S] + w             Web Browser
+          [S] + r              File Manager (Root)
+          [S] + q              Logout
+          PrtSc               Screenshot
+
+]]; 
+
